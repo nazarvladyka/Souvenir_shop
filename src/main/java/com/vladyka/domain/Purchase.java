@@ -32,11 +32,8 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return "Purchase{" +
-                "date=" + date +
-                ", price=" + price +
-                ", currency=" + currency +
-                ", productName='" + productName + '\'' +
-                '}';
+        return productName + " " +
+                price + " " +
+                currency;
     }
 }

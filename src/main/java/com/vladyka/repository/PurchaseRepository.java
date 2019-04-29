@@ -7,5 +7,8 @@ import java.util.Date;
 
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     Iterable<Purchase> findAllByDate(Date date);
+
     boolean deleteAllByDate(Date date);
+
+    Iterable<Purchase> findAll();
 }
