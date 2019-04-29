@@ -1,12 +1,12 @@
-package com.vladyka.dto;
+package com.vladyka.dto.purchase;
+
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor
 public class PurchasesReport {
     private List<DailyReport> dailyReports;
-
-    public PurchasesReport() {
-    }
 
     public PurchasesReport(List<DailyReport> dailyReports) {
         this.dailyReports = dailyReports;

@@ -1,11 +1,13 @@
 package com.vladyka.controller;
 
-import com.vladyka.dto.PurchaseDto;
-import com.vladyka.dto.PurchasesReport;
+import com.vladyka.dto.rate.ExchangeRate;
+import com.vladyka.dto.purchase.PurchaseDto;
+import com.vladyka.dto.purchase.PurchasesReport;
 import com.vladyka.enums.Currency;
 import com.vladyka.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 
@@ -15,6 +17,9 @@ public class PurchaseController {
 
     @Autowired
     private PurchaseService purchaseService;
+//    private ExchangeRateService exchangeRateService;
+
+    private RestTemplate restTemplate = new RestTemplate();
 
     @PostMapping
     @ResponseBody
@@ -53,4 +58,14 @@ public class PurchaseController {
         purchaseService.savePurchase(purchaseDto4);
         purchaseService.savePurchase(purchaseDto5);
     }
+
+    //localhost:8080/purchase/report/{year}/{currency}
+    @GetMapping(value = "/report/{year}/{currency}")
+    public ExchangeRate getReport() {
+        ExchangeRate exchangeRate = restTemplate.getForObject("http://data.fixer.io/api/latest?access_key=745a0b42b25b1d3fc36e47db388d31a1&symbols=USD,UAH,PLN", ExchangeRate.class);
+//        return exchangeRateService.saveExchangeRate(exchangeRate);
+        return exchangeRate;
+    }
+
+
 }

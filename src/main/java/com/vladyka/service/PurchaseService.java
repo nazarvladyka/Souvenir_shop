@@ -1,10 +1,10 @@
 package com.vladyka.service;
 
 import com.vladyka.domain.Purchase;
-import com.vladyka.dto.DailyReport;
-import com.vladyka.dto.PurchaseDto;
-import com.vladyka.dto.PurchaseDtoWODate;
-import com.vladyka.dto.PurchasesReport;
+import com.vladyka.dto.purchase.DailyReport;
+import com.vladyka.dto.purchase.PurchaseDto;
+import com.vladyka.dto.purchase.PurchaseDtoWODate;
+import com.vladyka.dto.purchase.PurchasesReport;
 import com.vladyka.enums.Currency;
 
 import java.text.ParseException;

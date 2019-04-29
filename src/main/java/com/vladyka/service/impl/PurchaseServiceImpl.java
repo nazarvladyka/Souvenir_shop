@@ -2,10 +2,10 @@ package com.vladyka.service.impl;
 
 import com.google.common.collect.Lists;
 import com.vladyka.domain.Purchase;
-import com.vladyka.dto.DailyReport;
-import com.vladyka.dto.PurchaseDto;
-import com.vladyka.dto.PurchaseDtoWODate;
-import com.vladyka.dto.PurchasesReport;
+import com.vladyka.dto.purchase.DailyReport;
+import com.vladyka.dto.purchase.PurchaseDto;
+import com.vladyka.dto.purchase.PurchaseDtoWODate;
+import com.vladyka.dto.purchase.PurchasesReport;
 import com.vladyka.enums.Currency;
 import com.vladyka.repository.PurchaseRepository;
 import com.vladyka.service.PurchaseService;
@@ -22,7 +22,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Autowired
     private PurchaseRepository purchaseRepository;
-    private CurrencyServiceImpl currencyService;
+    private ExchangeRateServiceImpl currencyService;
 
     static int id = 0;
 

@@ -1,22 +1,14 @@
-package com.vladyka.dto;
+package com.vladyka.dto.purchase;
 
 import com.vladyka.enums.Currency;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class PurchaseDto {
     private String date;
     private double price;
     private Currency currency;
     private String productName;
-
-    public PurchaseDto() {
-    }
-
-    public PurchaseDto(String date, double price, Currency currency, String productName) {
-        this.date = date;
-        this.price = price;
-        this.currency = currency;
-        this.productName = productName;
-    }
 
     public String getDate() {
         return date;

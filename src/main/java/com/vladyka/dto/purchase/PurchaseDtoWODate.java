@@ -1,4 +1,4 @@
-package com.vladyka.dto;
+package com.vladyka.dto.purchase;
 
 import com.vladyka.enums.Currency;
 
@@ -6,15 +6,6 @@ public class PurchaseDtoWODate {
     private String productName;
     private double price;
     private Currency currency;
-
-    public PurchaseDtoWODate() {
-    }
-
-    public PurchaseDtoWODate(String productName, double price, Currency currency) {
-        this.productName = productName;
-        this.price = price;
-        this.currency = currency;
-    }
 
     public String getProductName() {
         return productName;

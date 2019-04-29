@@ -1,18 +1,10 @@
-package com.vladyka.dto;
+package com.vladyka.dto.purchase;
 
 import java.util.List;
 
 public class DailyReport {
     private String date;
     private List<PurchaseDtoWODate> purchases;
-
-    public DailyReport() {
-    }
-
-    public DailyReport(String date, List<PurchaseDtoWODate> purchaseDtoWODates) {
-        this.date = date;
-        this.purchases = purchaseDtoWODates;
-    }
 
     public String getDate() {
         return date;
