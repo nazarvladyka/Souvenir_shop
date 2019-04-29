@@ -8,11 +8,6 @@ import java.util.Date;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +24,48 @@ public class Purchase {
 
     @Column(name="product_name")
     private String productName;
+
+    public Purchase() {
+    }
+
+    public Purchase(Date date, double price, Currency currency, String productName) {
+        this.date = date;
+        this.price = price;
+        this.currency = currency;
+        this.productName = productName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     @Override
     public String toString() {

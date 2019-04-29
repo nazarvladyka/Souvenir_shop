@@ -13,7 +13,7 @@ import java.util.Set;
 
 public interface PurchaseService {
 
-    com.vladyka.domain.Purchase save(com.vladyka.domain.Purchase purchase);
+    com.vladyka.domain.Purchase save(Purchase purchase);
 
     Iterable<com.vladyka.domain.Purchase> all();
 
@@ -23,7 +23,7 @@ public interface PurchaseService {
 
     Iterable<com.vladyka.domain.Purchase> getPurchasesByDate(Date date);
 
-    boolean clear(Date date);
+    int clear(String date) throws ParseException;
 
     double report(int year, Currency currency);
 
@@ -35,5 +35,5 @@ public interface PurchaseService {
 
     Set<Date> getPurchasesDates();
 
-    void savePurchaseDto(PurchaseDto purchaseDto) throws ParseException;
+    void savePurchase(PurchaseDto purchaseDto) throws ParseException;
 }

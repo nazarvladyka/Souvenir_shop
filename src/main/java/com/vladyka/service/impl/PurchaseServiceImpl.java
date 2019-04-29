@@ -1,5 +1,6 @@
 package com.vladyka.service.impl;
 
+import com.google.common.collect.Lists;
 import com.vladyka.domain.Purchase;
 import com.vladyka.dto.DailyReport;
 import com.vladyka.dto.PurchaseDto;
@@ -10,6 +11,7 @@ import com.vladyka.repository.PurchaseRepository;
 import com.vladyka.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,44 +31,48 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public com.vladyka.domain.Purchase save(com.vladyka.domain.Purchase purchase) {
+    public Purchase save(Purchase purchase) {
         id++;
         return purchaseRepository.save(purchase);
     }
 
     @Override
-    public Iterable<com.vladyka.domain.Purchase> all() {
+    public Iterable<Purchase> all() {
         return purchaseRepository.findAll();
     }
 
     @Override
-    public Iterable<com.vladyka.domain.Purchase> all(Date date) {
+    public Iterable<Purchase> all(Date date) {
         return purchaseRepository.findAllByDate(date);
     }
 
     @Override
-    public Iterable<com.vladyka.domain.Purchase> all(int year) {
+    public Iterable<Purchase> all(int year) {
         Date date = new Date(01/01/year);
         return purchaseRepository.findAllByDate(date);
     }
 
     @Override
-    public Iterable<com.vladyka.domain.Purchase> getPurchasesByDate(Date date) {
+    public Iterable<Purchase> getPurchasesByDate(Date date) {
         return purchaseRepository.findAllByDate(date);
     }
 
+    @Transactional
     @Override
-    public boolean clear(Date date) {
+    public int clear(String dateS) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(dateS);
+
         return purchaseRepository.deleteAllByDate(date);
     }
 
     @Override
     public double report(int year, Currency currency) {
-        Iterable<com.vladyka.domain.Purchase> purchases = all(year);
+        Iterable<Purchase> purchases = all(year);
         double amountInEUR = 0;
         double amount;
 
-        for(com.vladyka.domain.Purchase purchase: purchases) {
+        for(Purchase purchase: purchases) {
             //convert all currency to EUR
             if(purchase.getCurrency() != Currency.EUR) {
                 double exchangeRate = currencyService.getExchangeRate(purchase.getCurrency());
@@ -119,19 +125,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
         List<PurchaseDtoWODate> purchasesDtoWODate = new ArrayList<>();
-        List<Purchase> purchases = new ArrayList<>();
-        Iterable<Purchase> purchasesI = purchaseRepository.findAllByDate(date1);
-
-        for(Purchase p : purchasesI) {
-            purchases.add(p);
-        }
+        List<Purchase> purchases =  Lists.newArrayList(purchaseRepository.findAllByDate(date1));
 
         for(Purchase p : purchases) {
             purchasesDtoWODate.add(getPurchaseDtoWithoutDate(p));
         }
 
         dailyReport.setDate(date);
-        dailyReport.setPurchasesDtoWODates(purchasesDtoWODate);
+        dailyReport.setPurchases(purchasesDtoWODate);
 
         return dailyReport;
     }
@@ -150,7 +151,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Set<Date> getPurchasesDates() {
         Set<Date> dates = new HashSet<>();
-        Iterable<Purchase> purchases = purchaseRepository.findAll();
+        Iterable<Purchase> purchases = purchaseRepository.findAllByOrderByDate();
 
         for(Purchase p : purchases) {
             dates.add(p.getDate());
@@ -160,17 +161,12 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public void savePurchaseDto(PurchaseDto purchaseDto) throws ParseException {
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    public void savePurchase(PurchaseDto purchaseDto) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = simpleDateFormat.parse(purchaseDto.getDate());
 
-        Purchase purchase = new Purchase();
-
-        purchase.setDate(date);
-        purchase.setPrice(purchaseDto.getPrice());
-        purchase.setCurrency(purchaseDto.getCurrency());
-        purchase.setProductName(purchaseDto.getProductName());
+        Purchase purchase = new Purchase(date, purchaseDto.getPrice(),
+                purchaseDto.getCurrency(), purchaseDto.getProductName());
 
         save(purchase);
     }

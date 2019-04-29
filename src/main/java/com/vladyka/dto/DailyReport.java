@@ -4,14 +4,14 @@ import java.util.List;
 
 public class DailyReport {
     private String date;
-    private List<PurchaseDtoWODate> purchasesDtoWODates;
+    private List<PurchaseDtoWODate> purchases;
 
     public DailyReport() {
     }
 
     public DailyReport(String date, List<PurchaseDtoWODate> purchaseDtoWODates) {
         this.date = date;
-        this.purchasesDtoWODates = purchaseDtoWODates;
+        this.purchases = purchaseDtoWODates;
     }
 
     public String getDate() {
@@ -22,11 +22,11 @@ public class DailyReport {
         this.date = date;
     }
 
-    public List<PurchaseDtoWODate> getPurchasesDtoWODates() {
-        return purchasesDtoWODates;
+    public List<PurchaseDtoWODate> getPurchases() {
+        return purchases;
     }
 
-    public void setPurchasesDtoWODates(List<PurchaseDtoWODate> purchaseDtoWODates) {
-        this.purchasesDtoWODates = purchaseDtoWODates;
+    public void setPurchases(List<PurchaseDtoWODate> purchaseDtoWODates) {
+        this.purchases = purchaseDtoWODates;
     }
 }
