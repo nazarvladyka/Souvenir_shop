@@ -22,7 +22,7 @@ public class ExchangeRate {
     public void setBase(String base) {
         this.base = base;
     }
-    
+
     public String getDate() {
         return date;
     }
