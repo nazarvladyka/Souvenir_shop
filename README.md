@@ -30,6 +30,8 @@ If you have Postman you can "Import by Link" this colletion: https://www.getpost
 
 **[GET]** `localhost:8080/purchase/autopopulate`
 
+------------
+
 - **ADD PURCHASE**
 
 **[POST]** `localhost:8080/purchase`
@@ -153,4 +155,5 @@ If you have Postman you can "Import by Link" this colletion: https://www.getpost
 }
 ```
 Author: [Nazar Vladyka](https://github.com/nazarvladyka "Nazar Vladyka")
+
 nazarvladyka00@gmail.com
