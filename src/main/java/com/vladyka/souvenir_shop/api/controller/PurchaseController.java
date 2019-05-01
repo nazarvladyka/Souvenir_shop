@@ -55,7 +55,7 @@ public class PurchaseController {
      * localhost:8080/purchase/autopopulate
      */
     @GetMapping(value = "/autopopulate")
-    public void autopopulate() throws ParseException {
+    public AllPurchases autopopulate() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         List<Purchase> purchases = Arrays.asList(
@@ -66,5 +66,7 @@ public class PurchaseController {
                 new Purchase(simpleDateFormat.parse("2019-08-12"), 10.0, Currency.UAH, "Soda")
         );
         purchaseService.saveAll(purchases);
+
+        return purchaseService.getAllPurchases();
     }
 }
