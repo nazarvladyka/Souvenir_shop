@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 @Service
@@ -39,6 +40,12 @@ public class ReportServiceImpl implements ReportService {
 
         String currency = reportRequest.getCurrency();
         double sum = getAmount(Currency.valueOf(currency), reportRequest.getYear());
+
+        DecimalFormat df = new DecimalFormat("##.##");
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        df.setDecimalFormatSymbols(dfs);
+        sum = Double.valueOf(df.format(sum));
 
         reportResponse.setSum(sum);
         reportResponse.setCurrency(currency);

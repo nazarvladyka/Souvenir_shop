@@ -7,6 +7,15 @@ public class PurchaseWODate {
     private Double price;
     private Currency currency;
 
+    public PurchaseWODate() {
+    }
+
+    public PurchaseWODate(String productName, Double price, Currency currency) {
+        this.productName = productName;
+        this.price = price;
+        this.currency = currency;
+    }
+
     public String getProductName() {
         return productName;
     }

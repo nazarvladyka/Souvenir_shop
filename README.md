@@ -148,7 +148,7 @@ If you have Postman you can "Import by Link" this colletion: https://www.getpost
 *e.g. response:*
 ```json
 {
-    "sum": 28.840273808538896,
+    "sum": 28.84,
     "currency": "USD"
 }
 ```
