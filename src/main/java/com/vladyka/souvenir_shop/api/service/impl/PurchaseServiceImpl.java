@@ -5,6 +5,7 @@ import com.vladyka.souvenir_shop.api.dto.purchase.DailyPurchases;
 import com.vladyka.souvenir_shop.api.dto.purchase.PurchaseDto;
 import com.vladyka.souvenir_shop.api.dto.purchase.PurchaseWODate;
 import com.vladyka.souvenir_shop.api.dto.purchase.AllPurchases;
+import com.vladyka.souvenir_shop.api.enums.Currency;
 import com.vladyka.souvenir_shop.api.repository.PurchaseRepository;
 import com.vladyka.souvenir_shop.api.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void savePurchase(PurchaseDto purchaseDto) throws ParseException {
         Date date = simpleDateFormat.parse(purchaseDto.getDate());
+        Currency currency = Currency.valueOf(purchaseDto.getCurrency());
 
         Purchase purchase = new Purchase(date, purchaseDto.getPrice(),
-                purchaseDto.getCurrency(), purchaseDto.getProductName());
+                currency, purchaseDto.getProductName());
 
         purchaseRepository.save(purchase);
     }

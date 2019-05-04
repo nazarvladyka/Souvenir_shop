@@ -8,6 +8,7 @@ import com.vladyka.souvenir_shop.api.dto.report.ReportResponse;
 import com.vladyka.souvenir_shop.api.enums.Currency;
 import com.vladyka.souvenir_shop.api.service.ReportService;
 import com.vladyka.souvenir_shop.api.service.PurchaseService;
+import com.vladyka.souvenir_shop.api.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     public ReportServiceImpl(PurchaseService purchaseService) {
         this.purchaseService = purchaseService;
+        new ValidationServiceImpl().validateAccessKey(accessKey);
     }
 
     @Override

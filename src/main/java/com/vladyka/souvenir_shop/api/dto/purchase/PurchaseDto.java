@@ -1,17 +1,21 @@
 package com.vladyka.souvenir_shop.api.dto.purchase;
 
 import com.vladyka.souvenir_shop.api.enums.Currency;
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class PurchaseDto {
     private String date;
     private Double price;
-    private Currency currency;
+    private String currency;
     private String productName;
 
     public PurchaseDto() {
     }
 
-    public PurchaseDto(String date, Double price, Currency currency, String productName) {
+    public PurchaseDto(String date, Double price, String currency, String productName) {
         this.date = date;
         this.price = price;
         this.currency = currency;
@@ -34,11 +38,11 @@ public class PurchaseDto {
         this.price = price;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 

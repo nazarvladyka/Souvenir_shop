@@ -5,6 +5,8 @@ import com.vladyka.souvenir_shop.api.dto.purchase.PurchaseDto;
 import com.vladyka.souvenir_shop.api.dto.purchase.AllPurchases;
 import com.vladyka.souvenir_shop.api.enums.Currency;
 import com.vladyka.souvenir_shop.api.service.PurchaseService;
+import com.vladyka.souvenir_shop.api.service.ValidationService;
+import com.vladyka.souvenir_shop.api.service.impl.ValidationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/purchase")
 public class PurchaseController {
-
+    private ValidationService validationService = new ValidationServiceImpl();
     private final PurchaseService purchaseService;
 
     @Autowired
@@ -29,6 +31,8 @@ public class PurchaseController {
      */
     @PostMapping
     public AllPurchases savePurchase(@RequestBody PurchaseDto purchaseDto) throws ParseException {
+        validationService.validateData(purchaseDto);
+
         purchaseService.savePurchase(purchaseDto);
         return purchaseService.getAllPurchases();
     }
@@ -37,7 +41,7 @@ public class PurchaseController {
      * localhost:8080/purchase/all
      */
     @GetMapping(value = "/all")
-    public AllPurchases allPurchases() throws ParseException {
+    public AllPurchases allPurchases() {
         return purchaseService.getAllPurchases();
     }
 
@@ -46,6 +50,8 @@ public class PurchaseController {
      */
     @DeleteMapping(value = "/clear")
     public AllPurchases clearPurchase(@RequestParam String date) throws ParseException {
+        validationService.validateDate(date);
+
         purchaseService.clear(date);
 
         return purchaseService.getAllPurchases();
